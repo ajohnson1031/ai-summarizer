@@ -1,5 +1,5 @@
+import { Demo, Hero } from "@/components/";
 import "./App.css";
-import { Demo, Hero } from "./components/";
 
 const App = () => {
   return (

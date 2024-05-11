@@ -18,6 +18,9 @@ const Demo = () => {
     e.stopPropagation();
 
     try {
+      const existingArticle = allArticles.find((item) => item.url === article.url);
+
+      if (existingArticle) return setArticle(existingArticle);
       const { data } = await getSummary({ articleUrl: article.url });
 
       if (data?.summary) {

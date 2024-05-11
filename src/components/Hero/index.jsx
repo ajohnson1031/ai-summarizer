@@ -2,7 +2,7 @@ import { logo } from "@/assets";
 
 const Hero = () => {
   const handleClick = () => {
-    window.open("https://github.com/ajohnson1031");
+    window.open("https://github.com/ajohnson1031/ai-summarizer");
   };
   return (
     <header className="w-full flex justify-center items-center flex-col">

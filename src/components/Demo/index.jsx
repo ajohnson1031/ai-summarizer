@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const Demo = () => {
   const [article, setArticle] = useState({ url: "", summary: "" });
   const [allArticles, setAllArticles] = useState([]);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState({ url: false, summary: false });
 
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
@@ -41,12 +41,14 @@ const Demo = () => {
     setArticle(article);
   };
 
-  const handleCopy = (copyUrl) => {
-    setCopied(true);
-    navigator.clipboard.writeText(copyUrl);
+  const handleCopy = (e, type, content) => {
+    e.preventDefault();
+
+    setCopied({ ...copied, [type]: true });
+    navigator.clipboard.writeText(content);
 
     setTimeout(() => {
-      setCopied(false);
+      setCopied({ ...copied, [type]: false });
     }, 3000);
   };
 
@@ -78,13 +80,13 @@ const Demo = () => {
         {/* BROWSE URL HISTORY */}
         <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
           {allArticles.map((article, i) => (
-            <ArticleTile key={`link-${i}`} article={article} handleSetArticle={handleSetArticle} copied={copied} handleCopy={handleCopy} handleDelete={handleDelete} />
+            <ArticleTile key={`link-${i}`} article={article} handleSetArticle={handleSetArticle} copied={copied.url} handleCopy={handleCopy} handleDelete={handleDelete} />
           ))}
         </div>
       </div>
 
       {/* DISPLAY RESULTS */}
-      <ResultsDisplay isFetching={isFetching} error={error} summary={article.summary} />
+      <ResultsDisplay isFetching={isFetching} error={error} summary={article.summary} copied={copied.summary} handleCopy={handleCopy} />
     </section>
   );
 };

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const ArticleTile = ({ article, copied, handleSetArticle, handleCopy, handleDelete }) => {
   return (
     <div className="link_card" onClick={() => handleSetArticle(article)}>
-      <div className="copy_btn hover:bg-blue-50" onClick={() => handleCopy(article.url)}>
+      <div className="copy_btn hover:bg-blue-50" onClick={(e) => handleCopy(e, "url", article.url)}>
         <img src={copied ? tick : copy} alt="copy_icon" className="w-[50%] h-[50%] object-contain " />
       </div>
       <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">{article.url}</p>
